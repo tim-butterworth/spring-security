@@ -5,10 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -19,9 +18,10 @@ import java.net.URISyntaxException;
 import java.util.Collection;
 
 @RestController
+@RequestMapping("/authenticationProcessing")
 public class ControllingStuff {
 
-    @RequestMapping("/hi")
+    @GetMapping("/hi")
     public ResponseEntity<String> sayHi(HttpServletResponse response) {
         HttpHeaders headers = new HttpHeaders();
         try {
@@ -35,7 +35,7 @@ public class ControllingStuff {
         return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
     }
 
-    @RequestMapping(path = "/bye", method = RequestMethod.GET)
+    @GetMapping(path = "/bye")
     public ResponseEntity<String> sayBye() {
         Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
@@ -46,8 +46,8 @@ public class ControllingStuff {
         return ResponseEntity.ok("You shouldn't have done that...");
     }
 
-    @RequestMapping(path = "/info", method = RequestMethod.GET)
-    public ResponseEntity<String > getSession() {
+    @GetMapping(path = "/info")
+    public ResponseEntity<String> getSession() {
         HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
 
         return ResponseEntity.ok(session.getId());

@@ -1,4 +1,4 @@
-package com.example.springsecurity.security;
+package com.example.springsecurity.security.authenticationProcessingExample;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 
-public class FakeCDAS extends AbstractAuthenticationProcessingFilter {
+public class AuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
-    public FakeCDAS() {
-        super("/auth");
+    public AuthenticationProcessingFilter() {
+        super("/authenticationProcessing/auth");
     }
 
     @Override
