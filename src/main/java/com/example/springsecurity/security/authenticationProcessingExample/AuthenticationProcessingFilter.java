@@ -2,16 +2,14 @@ package com.example.springsecurity.security.authenticationProcessingExample;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class AuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -20,42 +18,13 @@ public class AuthenticationProcessingFilter extends AbstractAuthenticationProces
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-        return new Authentication() {
-            @Override
-            public Collection<? extends GrantedAuthority> getAuthorities() {
-                return Collections.singletonList(new SimpleGrantedAuthority("ROLE_CONTRACTOR"));
-            }
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        List<SimpleGrantedAuthority> grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_CONTRACTOR"));
 
-            @Override
-            public Object getCredentials() {
-                return "credentials";
-            }
-
-            @Override
-            public Object getDetails() {
-                return "details";
-            }
-
-            @Override
-            public Object getPrincipal() {
-                return "principle";
-            }
-
-            @Override
-            public boolean isAuthenticated() {
-                return true;
-            }
-
-            @Override
-            public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-
-            }
-
-            @Override
-            public String getName() {
-                return "name";
-            }
-        };
+        return new PreAuthenticatedAuthenticationToken(
+                "principle",
+                "credentials",
+                grantedAuthorities
+        );
     }
 }
