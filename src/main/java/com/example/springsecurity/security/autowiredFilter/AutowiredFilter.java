@@ -1,18 +1,12 @@
-package com.example.springsecurity.security;
+package com.example.springsecurity.security.autowiredFilter;
+
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-public class LoggingFilter implements Filter {
-
-    private final String id;
-
-    public LoggingFilter(String id) {
-
-        this.id = id;
-    }
-
+@Component
+public class AutowiredSabatogeFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -20,9 +14,7 @@ public class LoggingFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-
-        System.out.println(id + " -> " + httpRequest.getRequestURI());
+        System.out.println("This is an autowired filter!");
 
         chain.doFilter(request, response);
     }

@@ -1,4 +1,4 @@
-package com.example.springsecurity.security.authenticationProcessingExample.configurations;
+package com.example.springsecurity.security.authenticationProcessingExample;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.filter.OncePerRequestFilter;

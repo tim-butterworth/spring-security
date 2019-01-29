@@ -19,7 +19,9 @@ public class AuthenticationProcessingFilter extends AbstractAuthenticationProces
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        List<SimpleGrantedAuthority> grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_CONTRACTOR"));
+        List<SimpleGrantedAuthority> grantedAuthorities = Collections.singletonList(
+                new SimpleGrantedAuthority("ROLE_CONTRACTOR")
+        );
 
         return new PreAuthenticatedAuthenticationToken(
                 "principle",
